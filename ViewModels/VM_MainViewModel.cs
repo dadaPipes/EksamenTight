@@ -48,7 +48,7 @@ namespace EksamenFinish.ViewModels
         {
             vm_TempWorker = new VM_TempWorker();
             vm_TempWorkerValidation= new VM_TempWorkerValidation();
-            vm_TempWorkerCollection= new VM_TempWorkerCollection();
+            vm_TempWorkerCollection= new VM_TempWorkerCollection(vm_TempWorker);
             s_TempWorkerRepository = new S_TempWorkerRepository();
             c_TempWorkerCommands = new C_TempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
         }

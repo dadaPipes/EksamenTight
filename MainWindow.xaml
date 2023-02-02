@@ -42,7 +42,7 @@
 
     <!--TEXTBOX TEMPWORKER PROPERTIES-->
 
-    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" DataContext="{Binding vm_TempWorker}">
+    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" DataContext="{Binding vm_TempWorkerCollection.SelectedTempWorker}">
       <TextBox Name="ID" Margin="5,8,5,8" Padding="3" Text="{Binding Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtFirstName" Margin="5,8,5,8" Padding="3" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtLastName" Margin="5,8,5,8" Padding="3" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -58,7 +58,7 @@
 
     <!--LISTBOX -->
 
-    <ListBox x:Name="TempWorkerListBox" Grid.Column="4" Height="300" DataContext="{Binding vm_TempWorkerCollection}" ItemsSource="{Binding TempWorkers}" SelectedItem="{Binding SelectedTempWorker}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="198">
+    <ListBox x:Name="TempWorkerListBox" Grid.Column="4" Height="300" DataContext="{Binding vm_TempWorkerCollection}" ItemsSource="{Binding TempWorkers}" SelectedItem="{Binding SelectedTempWorker, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="198">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">

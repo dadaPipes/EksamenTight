@@ -26,7 +26,7 @@ namespace EksamenFinish.ViewModels
 
         public VM_TempWorkerCollection CreateTempWorkerCollection()
         {
-            return new VM_TempWorkerCollection();
+            return new VM_TempWorkerCollection(vm_TempWorker);
         }
         public C_TempWorkerCommands CreateTempWorkerCommands() => new C_TempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
         
