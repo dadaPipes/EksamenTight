@@ -6,10 +6,22 @@ namespace EksamenFinish.ViewModels
     //ViewModel for TempWorker collection
     public class VM_TempWorkerCollection : INotifyPropertyChanged
     {
-        public VM_TempWorker SelectedTempWorker { get; set; }
+        
         public VM_TempWorkerCollection(VM_TempWorker selectedTempWorker)
         {
             SelectedTempWorker = selectedTempWorker;
+        }
+
+        private VM_TempWorker _selectedTempWorker;
+
+        public VM_TempWorker SelectedTempWorker
+        {
+            get => _selectedTempWorker;
+            set
+            {
+                _selectedTempWorker = value;
+                OnPropertyChanged(nameof(SelectedTempWorker));
+            }
         }
 
         private ObservableCollection<VM_TempWorker> _tempWorkers;
