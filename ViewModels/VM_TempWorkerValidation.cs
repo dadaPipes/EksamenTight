@@ -17,25 +17,19 @@ namespace EksamenFinish.ViewModels
         //Regular expression ^[0-9]*$ to match any string that consists only of digits.
         private readonly Regex _onlyDigits = new Regex("^[0-9]*$");
 
-        #endregion
+        #endregion Field
 
-
-        private string validateFirstName;
+        private string _validateFirstName;
         public string ValidateFirstName
         {
-            get => validateFirstName;
+            get => _validateFirstName;
             set
             {
-                // assigns an empty string as default value if firstName is null or empty
                 value ??= "";
 
-                if (value == "X Æ A-12")
+                if (_onlyDigits.IsMatch(value))
                 {
-                    value = "I see you're trying to be unique, but X Æ A-12 is not your name.";
-                }
-                else if (!_onlyLetters.IsMatch(value))
-                {
-                    value = "Invalid first name";
+                    value = "Invalid first name, only letters are allowed.";
                 }
                 else if (value.Length > 50)
                 {
@@ -45,127 +39,143 @@ namespace EksamenFinish.ViewModels
                 {
                     value = "";
                 }
-                validateFirstName = value;
+                _validateFirstName = value;
                 OnPropertyChanged(nameof(ValidateFirstName));
             }
         }
 
-        //public string ValidateLastName
-        //{
-        //    get => vm_tempWorker.LastName;
-        //    set
-        //    {
-        //        vm_tempWorker.LastName ??= "";
+        private string _validateLastName;
 
-        //        if (!_onlyLetters.IsMatch(vm_tempWorker.LastName))
-        //        {
-        //            value = "Invalid Last name";
-        //        }
-        //        else if (vm_tempWorker.LastName.Length > 50)
-        //        {
-        //            value = "Last name must be 50 characters or less.";
-        //        }
-        //        else
-        //        {
-        //            value = "";
-        //        }
-        //        vm_tempWorker.LastName = value;
-        //        OnPropertyChanged(nameof(vm_tempWorker.LastName));
-        //    }
-        //}
+        public string ValidateLastName
+        {
+            get => _validateLastName;
+            set
+            {
+                value ??= "";
 
-        //public string ValidateAddress
-        //{
-        //    get => vm_tempWorker.Address;
+                if (_onlyDigits.IsMatch(value))
+                {
+                    value = "Invalid last name, only letters are allowed.";
+                }
+                else if (value.Length > 50)
+                {
+                    value = "Last name must be 50 characters or less.";
+                }
+                else
+                {
+                    value = "";
+                }
+                _validateLastName = value;
+                OnPropertyChanged(nameof(ValidateLastName));
+            }
+        }
 
-        //    set
+        private string _validateAddress;
 
-        //    {
-        //        vm_tempWorker.Address ??= "";
+        public string ValidateAddress
+        {
+            get => _validateAddress;
+            set
+            {
+                value ??= "";
 
-        //        if (!_onlyLetters.IsMatch(vm_tempWorker.Address))
-        //        {
-        //            value = "Invalid address";
-        //        }
-        //        else if (vm_tempWorker.Address.Length > 5)
-        //        {
-        //            value = "Address must be 5 characters or less.";
-        //        }
-        //        else
-        //        {
-        //            value = "";
-        //        }
-        //        vm_tempWorker.Address = value;
-        //    }
-        //}
+                if (_onlyDigits.IsMatch(value))
+                {
+                    value = "Invalid address, only letters are allowed.";
+                }
+                else if (value.Length > 5)
+                {
+                    value = "Address must be 5 characters or less.";
+                }
+                else
+                {
+                    value = "";
+                }
+                _validateAddress = value;
+                OnPropertyChanged(nameof(ValidateAddress));
+            }
+        }
 
-        //#region Validate City
 
-        //public string ValidateCity(string city)
-        //{
-        //    city ??= "";
+        private string _validateCity;
 
-        //    if (!_onlyLetters.IsMatch(city))
-        //    {
-        //        return "Invalid city name";
-        //    }
-        //    else if (city.Length > 50)
-        //    {
-        //        return "City must be 50 characters or less.";
-        //    }
-        //    else
-        //    {
-        //        return "";
-        //    }
-        //}
+        public string ValidateCity
+        {
+            get => _validateCity;
+            set
+            {
+                _validateCity ??= "";
+                if (!_onlyLetters.IsMatch(value))
+                {
+                    value = "Invalid city name";
+                }
+                else if (value.Length > 50)
+                {
+                    value = "City must be 50 characters or less.";
+                }
+                else
+                {
+                    value = "";
+                }
 
-        //#endregion Validate City
+                _validateCity = value;
+                OnPropertyChanged(nameof(ValidateCity));
+            }
+        }
 
-        //#region Validate ZipCode
+        private string _validateZipCode;
 
-        //public string ValidateZipCode(string zipCode)
-        //{
-        //    zipCode ??= "";
+        public string ValidateZipCode
+        {
+            get => _validateZipCode;
+            set
+            {
+                _validateZipCode ??= "";
 
-        //    if (!_onlyDigits.IsMatch(zipCode))
+                if (!_onlyDigits.IsMatch(value))
 
-        //    {
-        //        return "Must be digits";
-        //    }
-        //    else if (zipCode.Length != 4)
-        //    {
-        //        return "Must be 4 digits";
-        //    }
-        //    else
-        //    {
-        //        return "";
-        //    }
-        //}
+                {
+                    value = "Must be digits";
+                }
+                else if (value.Length != 4)
+                {
+                    value = "Must be 4 digits";
+                }
+                else
+                {
+                    value = "";
+                }
+                _validateZipCode = value;
+                OnPropertyChanged(nameof(ValidateZipCode));
+            }
+        }
 
-        //#endregion Validate ZipCode
+        private string _validatePersonalNumber;
 
-        //#region Validate PersonalNumber
+        public string ValidatePersonalNumber
+        {
+            get => _validatePersonalNumber;
+            set
+            {
+                _validatePersonalNumber ??= "";
 
-        //public string ValidatePersonalNumber(string personalNumber)
-        //{
-        //    personalNumber ??= "";
+                if (!_onlyDigits.IsMatch(value))
 
-        //    if (!_onlyDigits.IsMatch(personalNumber))
-
-        //    {
-        //        return "Must be digits";
-        //    }
-        //    else if (personalNumber.Length != 10)
-        //    {
-        //        return "Must be 10 digits";
-        //    }
-        //    else
-        //    {
-        //        return "";
-        //    }
-        //}
-
-        //#endregion Validate PersonalNumber
+                {
+                    value = "Must be digits";
+                }
+                else if (value.Length != 10)
+                {
+                    value = "Must be 10 digits";
+                }
+                else
+                {
+                    value = "";
+                }
+                _validatePersonalNumber = value;
+                OnPropertyChanged(nameof(ValidatePersonalNumber));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

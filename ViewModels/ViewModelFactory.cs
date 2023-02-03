@@ -1,11 +1,5 @@
-﻿using EksamenFinish.Models;
-using EksamenFinish.Services;
+﻿using EksamenFinish.Services;
 using EksamenFinish.ViewModels.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EksamenFinish.ViewModels
 {
@@ -15,23 +9,30 @@ namespace EksamenFinish.ViewModels
         private VM_TempWorker vm_TempWorker;
         private VM_TempWorkerCollection vm_TempWorkerCollection;
         private S_TempWorkerRepository s_TempWorkerRepository;
-        public VM_TempWorker CreateTempWorker()
-        {
-            return new VM_TempWorker(vm_TempWorkerValidation);
-        }
 
         public VM_TempWorkerValidation CreateTempWorkerValidation()
         {
-            return new VM_TempWorkerValidation();
+            return vm_TempWorkerValidation = new VM_TempWorkerValidation();
+        }
+
+        public VM_TempWorker CreateTempWorker()
+        {
+            return vm_TempWorker = new VM_TempWorker(vm_TempWorkerValidation);
         }
 
         public VM_TempWorkerCollection CreateTempWorkerCollection()
         {
-            return new VM_TempWorkerCollection(vm_TempWorker);
+            return vm_TempWorkerCollection = new VM_TempWorkerCollection(vm_TempWorker);
         }
-        public C_TempWorkerCommands CreateTempWorkerCommands() => new C_TempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
-        
-        
-    }
 
+        public S_TempWorkerRepository CreateTempWorkerRepository()
+        {
+            return s_TempWorkerRepository = new S_TempWorkerRepository();
+        }
+
+        public C_TempWorkerCommands CreateTempWorkerCommands()
+        {
+            return new C_TempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
+        }
+    }
 }

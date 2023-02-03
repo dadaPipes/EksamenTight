@@ -1,90 +1,56 @@
-﻿using EksamenFinish.ViewModels;
+﻿using EksamenFinish.Models;
+using EksamenFinish.ViewModels;
 using System.Collections.Generic;
 
 namespace EksamenFinish.Services
 {
-    // Service class that maps between the DTO_TempWorker data transfer object and the VM_TempWorker view model.
-    // S_TempWorkerMapper class is responsible for converting data between the data layer and the presentation layer,
-    // which is a necessary task in order to properly separate the concerns of each layer (!)
-
     public class S_TempWorkerMapper
     {
         private VM_TempWorkerValidation vm_TempWorkerValidation;
-        #region Map DTO to ViewModel
 
-        /// <summary>
-        /// Takes a DTO_TempWorker object as its input and returns a new VM_TempWorker object
-        /// that is populated with the properties from the input DTO_TempWorker.
-        /// This method is used to convert data from the data layer to the presentation layer.
-        /// </summary>
+        public S_TempWorkerMapper(VM_TempWorkerValidation vm_TempWorkerValidation)
+        {
+            this.vm_TempWorkerValidation = vm_TempWorkerValidation;
+        }
 
-        public VM_TempWorker MapDtoToViewModel(DTO_TempWorker dto)
+        public VM_TempWorker MapModelToViewModel(M_TempWorker m_tempWorker)
         {
             return new VM_TempWorker(vm_TempWorkerValidation)
             {
-                Id = dto.Id,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Address = dto.Address,
-                City = dto.City,
-                ZipCode = dto.ZipCode,
-                PersonalNumber = dto.PersonalNumber,
-                IsActive = dto.IsActive
+                Id = m_tempWorker.Id,
+                FirstName = m_tempWorker.FirstName,
+                LastName = m_tempWorker.LastName,
+                Address = m_tempWorker.Address,
+                City = m_tempWorker.City,
+                ZipCode = m_tempWorker.ZipCode,
+                PersonalNumber = m_tempWorker.PersonalNumber,
+                IsActive = m_tempWorker.IsActive
             };
         }
 
-        #endregion
-
-        #region Map ViewModel to DTO
-
-        /// <summary>
-        /// Takes a VM_TempWorker object as its input and returns a new DTO_TempWorker object
-        /// that is populated with the properties from the input VM_TempWorker.
-        /// This method is used to convert data from the presentation layer to the data layer.
-        /// </summary>
-
-        public DTO_TempWorker MapViewModelToDto(VM_TempWorker vm)
+        public M_TempWorker MapViewModelToModel(VM_TempWorker vm_tempWorker)
         {
-            return new DTO_TempWorker
+            return new M_TempWorker()
             {
-                Id = vm.Id,
-                FirstName = vm.FirstName,
-                LastName = vm.LastName,
-                Address = vm.Address,
-                City = vm.City,
-                ZipCode = vm.ZipCode,
-                PersonalNumber = vm.PersonalNumber,
-                IsActive = vm.IsActive
+                Id = vm_tempWorker.Id,
+                FirstName = vm_tempWorker.FirstName,
+                LastName = vm_tempWorker.LastName,
+                Address = vm_tempWorker.Address,
+                City = vm_tempWorker.City,
+                ZipCode = vm_tempWorker.ZipCode,
+                PersonalNumber = vm_tempWorker.PersonalNumber,
+                IsActive = vm_tempWorker.IsActive
             };
         }
 
-
-        // Maps a list of DTOs to a list of VMs
-        public List<VM_TempWorker> MapDtoListToViewModelList(List<DTO_TempWorker> dtoList)
+        public List<VM_TempWorker> MapModelListToViewModelList(List<M_TempWorker> m_tempWorkers)
         {
-            var vmList = new List<VM_TempWorker>();
-            foreach (var dto in dtoList)
+            List<VM_TempWorker> vm_tempWorkers = new List<VM_TempWorker>();
+            foreach (var m_tempWorker in m_tempWorkers)
             {
-                var vm = MapDtoToViewModel(dto);
-                vmList.Add(vm);
+                vm_tempWorkers.Add(MapModelToViewModel(m_tempWorker));
             }
-            return vmList;
+            return vm_tempWorkers;
         }
-
-        // Maps a list of VMs to a list of DTOs
-        public List<DTO_TempWorker> MapViewModelListToDtoList(List<VM_TempWorker> vmList)
-        {
-            var dtoList = new List<DTO_TempWorker>();
-            foreach (var vm in vmList)
-            {
-                var dto = MapViewModelToDto(vm);
-                dtoList.Add(dto);
-            }
-            return dtoList;
-        }
-
-        #endregion
     }
-
-
 }

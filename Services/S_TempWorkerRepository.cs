@@ -1,8 +1,8 @@
 ﻿using EksamenFinish.DAL;
+using EksamenFinish.Models;
 using EksamenFinish.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+
 
 namespace EksamenFinish.Services
 {
@@ -13,7 +13,8 @@ namespace EksamenFinish.Services
         #region Fields
 
         private DAL_TempWorkerRepository _dal;
-        private DTO_TempWorker dto_tempWorker;
+        private VM_TempWorkerValidation vm_TempWorkerValidation;
+        private M_TempWorker m_tempWorker;
 
         private S_TempWorkerMapper s_tempWorkerMapper;
 
@@ -22,20 +23,20 @@ namespace EksamenFinish.Services
         public S_TempWorkerRepository()
         {
             _dal = new DAL_TempWorkerRepository();
-            s_tempWorkerMapper = new S_TempWorkerMapper();
+            s_tempWorkerMapper = new S_TempWorkerMapper(vm_TempWorkerValidation);
         }
 
         #region SearchTempWorkers
 
         public List<VM_TempWorker> SearchTempWorkers(VM_TempWorker vm_tempWorker)
         {
-            dto_tempWorker = s_tempWorkerMapper.MapViewModelToDto(vm_tempWorker);
+            m_tempWorker = s_tempWorkerMapper.MapViewModelToModel(vm_tempWorker);
 
             // Search for temp workers using the dto_tempWorker
-            List<DTO_TempWorker> dto_tempWorkers = _dal.SearchTempWorkers(dto_tempWorker);
+            List<M_TempWorker> m_tempWorkers = _dal.SearchTempWorkers(m_tempWorker);
 
             // Map the dto_tempWorkers to a list of vm_tempWorkers
-            List<VM_TempWorker> vm_tempWorkers = s_tempWorkerMapper.MapDtoListToViewModelList(dto_tempWorkers);
+            List<VM_TempWorker> vm_tempWorkers = s_tempWorkerMapper.MapModelListToViewModelList(m_tempWorkers);
 
             return vm_tempWorkers;
         }
@@ -53,9 +54,9 @@ namespace EksamenFinish.Services
         public void CreateTempWorker(VM_TempWorker vm_tempWorker)
         {
             // Map the TempWorkerViewModel properties to the tempWorkerDTO object
-            dto_tempWorker = s_tempWorkerMapper.MapViewModelToDto(vm_tempWorker);
+            m_tempWorker = s_tempWorkerMapper.MapViewModelToModel(vm_tempWorker);
 
-            _dal.CreateTempWorker(dto_tempWorker);
+            _dal.CreateTempWorker(m_tempWorker);
         }
 
         #endregion CreateTempWorker
@@ -70,9 +71,9 @@ namespace EksamenFinish.Services
         public void UpdateTempWorker(VM_TempWorker vm_tempWorker)
         {
             // Map the TempWorkerViewModel properties to the tempWorkerDTO object
-            dto_tempWorker = s_tempWorkerMapper.MapViewModelToDto(vm_tempWorker);
+            m_tempWorker = s_tempWorkerMapper.MapViewModelToModel(vm_tempWorker);
 
-            _dal.UpdateWorker(dto_tempWorker);
+            _dal.UpdateWorker(m_tempWorker);
         }
 
         #endregion UpdateTempWorker
@@ -86,9 +87,9 @@ namespace EksamenFinish.Services
 
         public void DeleteTempWorker(VM_TempWorker vm_tempWorker)
         {
-            dto_tempWorker = s_tempWorkerMapper.MapViewModelToDto(vm_tempWorker);
+            m_tempWorker = s_tempWorkerMapper.MapViewModelToModel(vm_tempWorker);
 
-            _dal.DeleteTempWorker(dto_tempWorker);
+            _dal.DeleteTempWorker(m_tempWorker);
         }
 
         #endregion DeleteTempWorker

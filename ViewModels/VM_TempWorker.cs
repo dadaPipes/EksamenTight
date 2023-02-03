@@ -1,8 +1,9 @@
 ﻿#region Usings
-using EksamenFinish.Models;
+
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
 #endregion
 
 namespace EksamenFinish.ViewModels
@@ -10,102 +11,144 @@ namespace EksamenFinish.ViewModels
     // Used for data binding in the UI layer.
     public class VM_TempWorker : INotifyPropertyChanged
     {
-        private M_TempWorker _model;
         private VM_TempWorkerValidation _validation;
 
         public VM_TempWorker(VM_TempWorkerValidation validation)
         {
-            _model = new M_TempWorker();
             _validation = validation;
-
         }
 
-        
+        private Guid _id;
 
         public Guid Id
         {
-            get => _model.Id;
+            get => _id;
             set
             {
-                _model.Id = value;
+                _id = value;
                 OnPropertyChanged(nameof(Id));
-                
-
             }
         }
+
+        private string _firstName;
 
         public string FirstName
         {
-            get => _model.FirstName;
+            get => _firstName;
             set
             {
-                _model.FirstName = value;
-                _validation.ValidateFirstName = _model.FirstName;
+                _firstName = value;
+                if (_validation != null)
+                {
+                    _validation.ValidateFirstName = _firstName;
+                }
                 OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(FullName));
                 OnPropertyChanged(nameof(_validation.ValidateFirstName));
             }
-
         }
+
+        private string _lastName;
 
         public string LastName
         {
-            get => _model.LastName;
+            get => _lastName;
             set
-            { 
-                _model.LastName = value;
+            {
+                _lastName = value;
+                if (_validation != null)
+                {
+                    _validation.ValidateLastName = _lastName;
+                }
                 OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged(nameof(FullName));
+                OnPropertyChanged(nameof(_validation.ValidateLastName));
             }
         }
 
         public string FullName => FirstName + " " + LastName;
 
-        public string City
-        {
-            get => _model.City;
-            set
-            {
-                _model.City = value;
-                OnPropertyChanged(nameof(City));
-            }
-        }
+        private string _address;
 
         public string Address
         {
-            get => _model.Address;
-            set { 
-                _model.Address = value;
+            get => _address;
+            set
+            {
+                _address = value;
+                if (_validation != null)
+                {
+                    _validation.ValidateAddress = _address;
+                }
                 OnPropertyChanged(nameof(Address));
+                OnPropertyChanged(nameof(_validation.ValidateAddress));
+
             }
         }
+
+        private string _city;
+
+        public string City
+        {
+            get => _city;
+            set
+            {
+                _city = value;
+                if (_validation != null)
+                {
+                    _validation.ValidateCity = _city;
+                }
+                OnPropertyChanged(nameof(City));
+                OnPropertyChanged(nameof(_validation.ValidateCity));
+            }
+        }
+
+        private int _zipCode;
 
         public int ZipCode
         {
-            get => _model.ZipCode; set
+            get => _zipCode;
+            set
             {
-                _model.ZipCode = value;
+                _zipCode = value;
+                if (_validation != null) 
+                {
+                    _validation.ValidateZipCode =  _zipCode.ToString();
+                }
                 OnPropertyChanged(nameof(ZipCode));
+                OnPropertyChanged(nameof(_validation.ValidateZipCode));
             }
         }
 
-
+        private string _personalNumber;
 
         public string PersonalNumber
         {
-            get => _model.PersonalNumber; set
+            get => _personalNumber;
+            set
             {
-                _model.PersonalNumber = value;
+                _personalNumber = value;
+                if (_validation != null)
+                {
+                    _validation.ValidatePersonalNumber = _personalNumber;
+                }
                 OnPropertyChanged(nameof(PersonalNumber));
+                OnPropertyChanged(nameof(_validation.ValidatePersonalNumber));
             }
         }
 
         #region TempWorker bool IsActive
 
         // The value of the TempWorkerIsActive property is based on the values of TempWorkerIsActiveTrue and TempWorkerIsActiveFalse.
+
+        private bool _isActive;
+
         public bool IsActive
         {
-            get => _model.IsActive; set
+            get => _isActive;
+            set
             {
-                _model.IsActive = value;
+                _isActive = value;
                 OnPropertyChanged(nameof(IsActive));
             }
         }

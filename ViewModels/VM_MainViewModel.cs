@@ -13,49 +13,51 @@ namespace EksamenFinish.ViewModels
     which uses it to create instances of other classes.
     */
 
+    public class VM_MainViewModel
+    {
+        // Instance variables to store instances of other classes
+        public VM_TempWorker vm_TempWorker { get; set; }
+        public VM_TempWorkerValidation vm_TempWorkerValidation { get; set; }
+        public VM_TempWorkerCollection vm_TempWorkerCollection { get; set; }
+        public S_TempWorkerRepository s_TempWorkerRepository { get; set; }
+        public C_TempWorkerCommands c_TempWorkerCommands { get; set; }
+
+        // Default constructor that creates an instance of ViewModelFactory
+        public VM_MainViewModel() : this(factory: new ViewModelFactory()) { }
+
+        // Second constructor that accepts an instance of IViewModelFactory
+        public VM_MainViewModel(IViewModelFactory factory)
+        {
+            // Use the passed in factory instance to create instances of other classes
+            vm_TempWorkerValidation = factory.CreateTempWorkerValidation();
+            vm_TempWorker = factory.CreateTempWorker();
+            vm_TempWorkerCollection = factory.CreateTempWorkerCollection();
+            s_TempWorkerRepository= factory.CreateTempWorkerRepository();
+            c_TempWorkerCommands = factory.CreateTempWorkerCommands();
+        }
+    }
+
+
     //public class VM_MainViewModel
     //{
-    //    // Instance variables to store instances of other classes
+    //    public VM_TempWorkerValidation vm_TempWorkerValidiation { get; set; }
     //    public VM_TempWorker vm_TempWorker { get; set; }
+    //    public S_TempWorkerRepository s_TempWorkerRepository { get; set; }
     //    public VM_TempWorkerValidation vm_TempWorkerValidation { get; set; }
     //    public VM_TempWorkerCollection vm_TempWorkerCollection { get; set; }
     //    public C_TempWorkerCommands c_TempWorkerCommands { get; set; }
 
-    //    // Default constructor that creates an instance of ViewModelFactory
-    //    public VM_MainViewModel() : this(factory: new ViewModelFactory()) { }
-
-    //    // Second constructor that accepts an instance of IViewModelFactory
-    //    public VM_MainViewModel(IViewModelFactory factory)
+    //    public VM_MainViewModel()
     //    {
-    //        // Use the passed factory instance to create instances of other classes
-    //        vm_TempWorker = factory.CreateTempWorker();
-    //        vm_TempWorkerValidation = factory.CreateTempWorkerValidation();
-    //        vm_TempWorkerCollection = factory.CreateTempWorkerCollection();
-    //        c_TempWorkerCommands = factory.CreateTempWorkerCommands();
+    //        vm_TempWorkerValidation = new VM_TempWorkerValidation();
+    //        vm_TempWorker = new VM_TempWorker(vm_TempWorkerValidation);
+    //        vm_TempWorkerValidation = new VM_TempWorkerValidation();
+    //        vm_TempWorkerCollection = new VM_TempWorkerCollection(vm_TempWorker);
+    //        s_TempWorkerRepository = new S_TempWorkerRepository();
+    //        c_TempWorkerCommands = new C_TempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
     //    }
+
     //}
-
-    
-    public class VM_MainViewModel
-    {
-        public VM_TempWorkerValidation vm_TempWorkerValidiation { get; set; }
-        public VM_TempWorker vm_TempWorker { get; set; }
-        public S_TempWorkerRepository s_TempWorkerRepository { get; set; }
-        public VM_TempWorkerValidation vm_TempWorkerValidation { get; set; }
-        public VM_TempWorkerCollection vm_TempWorkerCollection { get; set; }
-        public C_TempWorkerCommands c_TempWorkerCommands { get; set; }
-
-        public VM_MainViewModel()
-        {
-            vm_TempWorkerValidation = new VM_TempWorkerValidation();
-            vm_TempWorker = new VM_TempWorker(vm_TempWorkerValidation);
-            vm_TempWorkerValidation= new VM_TempWorkerValidation();
-            vm_TempWorkerCollection= new VM_TempWorkerCollection(vm_TempWorker);
-            s_TempWorkerRepository = new S_TempWorkerRepository();
-            c_TempWorkerCommands = new C_TempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
-        }
-
-    }
 
 
 }
