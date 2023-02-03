@@ -1,5 +1,4 @@
-﻿using EksamenFinish.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
@@ -8,12 +7,9 @@ namespace EksamenFinish.ViewModels
     public class VM_TempWorkerValidation : INotifyPropertyChanged
     {
         // //ViewModel for TempWorker validation
-        // Responsible for validating the properties of a TempWorker,
-        // and returning an error message if the name is invalid.
+        // Responsible for validating the properties of a TempWorker, returning an error message if the name is invalid.
 
         #region Field
-
-        private VM_TempWorker vm_tempWorker;
 
         //The regular expression ^[a-zA-Z]*$ is used to match any string that consists only of letters (uppercase or lowercase).
         private readonly Regex _onlyLetters = new Regex("^[a-zA-Z]*$");
@@ -21,44 +17,38 @@ namespace EksamenFinish.ViewModels
         //Regular expression ^[0-9]*$ to match any string that consists only of digits.
         private readonly Regex _onlyDigits = new Regex("^[0-9]*$");
 
+        #endregion
 
 
-        #endregion Field
-
-        public VM_TempWorkerValidation()
+        private string validateFirstName;
+        public string ValidateFirstName
         {
-           
+            get => validateFirstName;
+            set
+            {
+                // assigns an empty string as default value if firstName is null or empty
+                value ??= "";
+
+                if (value == "X Æ A-12")
+                {
+                    value = "I see you're trying to be unique, but X Æ A-12 is not your name.";
+                }
+                else if (!_onlyLetters.IsMatch(value))
+                {
+                    value = "Invalid first name";
+                }
+                else if (value.Length > 50)
+                {
+                    value = "First name must be 50 characters or less.";
+                }
+                else
+                {
+                    value = "";
+                }
+                validateFirstName = value;
+                OnPropertyChanged(nameof(ValidateFirstName));
+            }
         }
-
-        //private string validateFirstName;
-        //public string ValidateFirstName
-        //{
-        //    get => validateFirstName;
-        //    set
-        //    {
-        //        // assigns an empty string as default value if firstName is null or empty
-        //        validateFirstName ??= "";
-
-        //        if (validateFirstName == "X Æ A-12")
-        //        {
-        //            value = "I see you're trying to be unique, but X Æ A-12 is not your name.";
-        //        }
-        //        else if (!_onlyLetters.IsMatch(validateFirstName))
-        //        {
-        //            value = "Invalid first name";
-        //        }
-        //        else if (validateFirstName.Length > 50)
-        //        {
-        //            value = "First name must be 50 characters or less.";
-        //        }
-        //        else
-        //        {
-        //            value = "";
-        //        }
-        //        validateFirstName = value;
-        //        OnPropertyChanged(nameof(ValidateFirstName));
-        //    }
-        //}
 
         //public string ValidateLastName
         //{

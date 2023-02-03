@@ -1,24 +1,26 @@
 ﻿#region Usings
-
 using EksamenFinish.Models;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 #endregion
 
 namespace EksamenFinish.ViewModels
 {
+    // Used for data binding in the UI layer.
     public class VM_TempWorker : INotifyPropertyChanged
     {
         private M_TempWorker _model;
+        private VM_TempWorkerValidation _validation;
 
-        public VM_TempWorker()
+        public VM_TempWorker(VM_TempWorkerValidation validation)
         {
             _model = new M_TempWorker();
+            _validation = validation;
+
         }
 
-        // Used for data binding in the UI layer.
+        
 
         public Guid Id
         {
@@ -28,6 +30,7 @@ namespace EksamenFinish.ViewModels
                 _model.Id = value;
                 OnPropertyChanged(nameof(Id));
                 
+
             }
         }
 
@@ -37,7 +40,9 @@ namespace EksamenFinish.ViewModels
             set
             {
                 _model.FirstName = value;
+                _validation.ValidateFirstName = _model.FirstName;
                 OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(_validation.ValidateFirstName));
             }
 
         }

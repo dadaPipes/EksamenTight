@@ -9,7 +9,7 @@ namespace EksamenFinish.Services
 
     public class S_TempWorkerMapper
     {
-        
+        private VM_TempWorkerValidation vm_TempWorkerValidation;
         #region Map DTO to ViewModel
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace EksamenFinish.Services
 
         public VM_TempWorker MapDtoToViewModel(DTO_TempWorker dto)
         {
-            return new VM_TempWorker()
+            return new VM_TempWorker(vm_TempWorkerValidation)
             {
                 Id = dto.Id,
                 FirstName = dto.FirstName,

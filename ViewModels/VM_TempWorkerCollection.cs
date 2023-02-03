@@ -33,6 +33,7 @@ namespace EksamenFinish.ViewModels
             {
                 _tempWorkers = value;
                 OnPropertyChanged(nameof(TempWorkers));
+                OnPropertyChanged(nameof(SelectedTempWorker));
             }
         }
 

@@ -11,12 +11,13 @@ namespace EksamenFinish.ViewModels
 {
     public class ViewModelFactory : IViewModelFactory
     {
+        private VM_TempWorkerValidation vm_TempWorkerValidation;
         private VM_TempWorker vm_TempWorker;
         private VM_TempWorkerCollection vm_TempWorkerCollection;
         private S_TempWorkerRepository s_TempWorkerRepository;
         public VM_TempWorker CreateTempWorker()
         {
-            return new VM_TempWorker();
+            return new VM_TempWorker(vm_TempWorkerValidation);
         }
 
         public VM_TempWorkerValidation CreateTempWorkerValidation()

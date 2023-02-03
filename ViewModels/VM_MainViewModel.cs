@@ -38,6 +38,7 @@ namespace EksamenFinish.ViewModels
     
     public class VM_MainViewModel
     {
+        public VM_TempWorkerValidation vm_TempWorkerValidiation { get; set; }
         public VM_TempWorker vm_TempWorker { get; set; }
         public S_TempWorkerRepository s_TempWorkerRepository { get; set; }
         public VM_TempWorkerValidation vm_TempWorkerValidation { get; set; }
@@ -46,7 +47,8 @@ namespace EksamenFinish.ViewModels
 
         public VM_MainViewModel()
         {
-            vm_TempWorker = new VM_TempWorker();
+            vm_TempWorkerValidation = new VM_TempWorkerValidation();
+            vm_TempWorker = new VM_TempWorker(vm_TempWorkerValidation);
             vm_TempWorkerValidation= new VM_TempWorkerValidation();
             vm_TempWorkerCollection= new VM_TempWorkerCollection(vm_TempWorker);
             s_TempWorkerRepository = new S_TempWorkerRepository();

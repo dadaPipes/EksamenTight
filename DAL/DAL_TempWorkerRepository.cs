@@ -122,7 +122,7 @@ namespace EksamenFinish.DAL
             {
                 using (DbCommand command = _connection.CreateCommand())
                 {
-                    command.CommandText = "UPDATE TempWorkers SET FirstName = @FirstName, LastName = @LastName, Address = @Address, City = @City, ZipCode = @ZipCode, PersonalNumber = @PersonalNumber, IsActive = @IsActive WHERE Id = @Id";
+                    command.CommandText = "UPDATE TempWorker SET FirstName = @FirstName, LastName = @LastName, Address = @Address, City = @City, ZipCode = @ZipCode, PersonalNumber = @PersonalNumber, IsActive = @IsActive WHERE Id = @Id";
                     command.Parameters.Add(new SqlParameter("@FirstName", dto_tempWorker.FirstName));
                     command.Parameters.Add(new SqlParameter("@LastName", dto_tempWorker.LastName));
                     command.Parameters.Add(new SqlParameter("@Address", dto_tempWorker.Address));
@@ -144,14 +144,14 @@ namespace EksamenFinish.DAL
         #endregion UpdateWorker
 
         #region DeleteTempWorker
-        public void DeleteTempWorker(Guid id)
+        public void DeleteTempWorker(DTO_TempWorker dto_tempWorker)
         {
             try
             {
                 using (DbCommand command = _connection.CreateCommand())
                 {
-                    command.CommandText = "DELETE FROM TempWorkers WHERE Id = @Id";
-                    command.Parameters.Add(new SqlParameter("@Id", id));
+                    command.CommandText = "DELETE FROM TempWorker WHERE Id = @Id";
+                    command.Parameters.Add(new SqlParameter("@Id", dto_tempWorker.Id));
                     command.ExecuteNonQuery();
                 }
             }

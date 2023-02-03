@@ -1,6 +1,6 @@
-﻿
-using EksamenFinish.Services;
+﻿using EksamenFinish.Services;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EksamenFinish.ViewModels.Commands
@@ -9,10 +9,7 @@ namespace EksamenFinish.ViewModels.Commands
     {
         #region Fields
 
-        
         private VM_TempWorker selectedTempWorker;
-
-        
         private S_TempWorkerRepository s_tempWorkerRepository;
         private VM_TempWorkerCollection vm_TempWorkerCollection;
 
@@ -25,8 +22,6 @@ namespace EksamenFinish.ViewModels.Commands
             this.s_tempWorkerRepository = s_tempWorkerRepository;
         }
 
-        
-
         #region SearchTempWorkerCommand
 
         public ICommand SearchTempWorkerCommand
@@ -35,7 +30,8 @@ namespace EksamenFinish.ViewModels.Commands
             {
                 return new RelayCommand(() =>
                 {
-                    //vm_tempWorkerCollection.TempWorkers.Clear();
+                    vm_TempWorkerCollection.TempWorkers?.Clear();
+
                     vm_TempWorkerCollection.TempWorkers = new ObservableCollection<VM_TempWorker>(s_tempWorkerRepository.SearchTempWorkers(selectedTempWorker));
                 },
                 () => true);
@@ -52,10 +48,9 @@ namespace EksamenFinish.ViewModels.Commands
             {
                 return new RelayCommand(() =>
                 {
-                    s_tempWorkerRepository.CreateTempWorker(selectedTempWorker);
+                    s_tempWorkerRepository.CreateTempWorker(vm_TempWorkerCollection.SelectedTempWorker);
                 },
                 () => true);
-
             }
         }
 
@@ -65,10 +60,8 @@ namespace EksamenFinish.ViewModels.Commands
 
         public ICommand UpdateTempWorkerCommand => new RelayCommand(() =>
         {
-            s_tempWorkerRepository.UpdateTempWorker(selectedTempWorker);
+            s_tempWorkerRepository.UpdateTempWorker(vm_TempWorkerCollection.SelectedTempWorker);
         }, () => true);
-
-
 
         #endregion UpdateTempWorker
 
@@ -76,14 +69,14 @@ namespace EksamenFinish.ViewModels.Commands
 
         public ICommand DeleteTempWorkerCommand => new RelayCommand(() =>
         {
-            s_tempWorkerRepository.DeleteTempWorker(selectedTempWorker.Id);
+            s_tempWorkerRepository.DeleteTempWorker(vm_TempWorkerCollection.SelectedTempWorker);
         }, () => true);
 
         #endregion DeleteCommand
     }
 }
 
-// ICommand validation for SearchTempWorker: 
+// ICommand validation for SearchTempWorker:
 
 //if (string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.FirstName)
 //    || string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.LastName)

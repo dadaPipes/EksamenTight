@@ -72,7 +72,7 @@
     <!-- ERROR MESSAGES -->
 
     <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="360" DataContext="{Binding vm_TempWorkerValidation}">
-      <TextBlock x:Name="ErrorFirstName" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateFirstName}" VerticalAlignment="center" Height="23" Width="140" />
+      <TextBlock x:Name="ErrorFirstName" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="center" Height="23" Width="140" />
       <TextBlock x:Name="ErrorLastName" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateLastName}" VerticalAlignment="center" Height="23" Width="140" />
       <TextBlock x:Name="ErrorAddress" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateAddress}" VerticalAlignment="center" Height="23" Width="140" />
       <TextBlock x:Name="ErrorCity" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateCity}" VerticalAlignment="center" Height="23" Width="140" />
@@ -87,6 +87,7 @@
       <Button Name="btnSearch" Content="SØG" Margin="5,8" Padding="3" Command="{Binding SearchTempWorkerCommand}" />
       <Button Name="btnUpdate" Content="OPDATER" Margin="5,8" Padding="3" Command="{Binding UpdateTempWorkerCommand}" />
       <Button Name="btnDelete" Content="SLET" Margin="5,8" Padding="3" Command="{Binding DeleteTempWorkerCommand}" />
+      <Button Content="TEST" Click="Button_Click" />
     </StackPanel>
     
 </Grid>

@@ -12,6 +12,6 @@ namespace EksamenFinish.DAL
 
         void UpdateWorker(DTO_TempWorker dto_tempWorker);
 
-        void DeleteTempWorker(Guid id);
+        void DeleteTempWorker(DTO_TempWorker dto_tempWorker);
     }
 }

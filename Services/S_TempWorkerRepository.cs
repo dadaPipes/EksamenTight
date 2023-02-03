@@ -84,9 +84,11 @@ namespace EksamenFinish.Services
         /// using the _dal object's DeleteTempWorker method.
         /// </summary>
 
-        public void DeleteTempWorker(Guid id)
+        public void DeleteTempWorker(VM_TempWorker vm_tempWorker)
         {
-            _dal.DeleteTempWorker(id);
+            dto_tempWorker = s_tempWorkerMapper.MapViewModelToDto(vm_tempWorker);
+
+            _dal.DeleteTempWorker(dto_tempWorker);
         }
 
         #endregion DeleteTempWorker
