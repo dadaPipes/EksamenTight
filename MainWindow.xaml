@@ -4,6 +4,12 @@
     <local:VMMainViewModel />
   </Window.DataContext>
 
+  <Window.Resources>
+    <Style TargetType="TextBlock" x:Key="errorMessageStyle">
+      <Setter Property="Foreground" Value="Red" />
+    </Style>
+  </Window.Resources>
+
   <Grid>
 
     <Grid.ColumnDefinitions>
@@ -11,17 +17,9 @@
       <ColumnDefinition Width="auto" />
       <ColumnDefinition Width="auto" />
       <ColumnDefinition Width="auto" />
-      <ColumnDefinition Width="auto" />
     </Grid.ColumnDefinitions>
+
     <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
@@ -29,9 +27,7 @@
     <!--NAMES FOR TEXTBOXES-->
 
     <StackPanel Orientation="Vertical">
-      <TextBlock Text="Vikar Information" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,40" />
-      <TextBlock Text="ID" Margin="5,8,5,8" Padding="3" />
-      <TextBlock Text="Fornavn" Margin="5,8,5,8" Padding="3" />
+      <TextBlock Text="Fornavn" Margin="5,80,5,8" Padding="3" />
       <TextBlock Text="Efternavn" Margin="5,8,5,8" Padding="3" />
       <TextBlock Text="Adresse" Margin="5,8,5,8" Padding="3" />
       <TextBlock Text="By" Margin="5,8,5,8" Padding="3" />
@@ -43,7 +39,6 @@
     <!--TEXTBOX TEMPWORKER PROPERTIES-->
 
     <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" DataContext="{Binding vmTempWorkerCollection.SelectedTempWorker}">
-      <TextBox Name="ID" Margin="5,8,5,8" Padding="3" Text="{Binding Id, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtFirstName" Margin="5,8,5,8" Padding="3" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtLastName" Margin="5,8,5,8" Padding="3" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtAddress" Margin="5,8,5,8" Padding="3" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -56,9 +51,35 @@
       </StackPanel>
     </StackPanel>
 
+    <!-- ERROR MESSAGES -->
+
+    <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="360" DataContext="{Binding vmTempWorkerValidation}">
+      <StackPanel.Resources>
+        <Style TargetType="TextBlock" x:Key="errorMessageStyle">
+          <Setter Property="Foreground" Value="Red" />
+          <Setter Property="Margin" Value="5,8,5,8" />
+          <Setter Property="Padding" Value="3" />
+          <Setter Property="VerticalAlignment" Value="Center" />
+          <Setter Property="Height" Value="23" />
+          <Setter Property="Width" Value="140" />
+        </Style>
+      </StackPanel.Resources>
+      <TextBlock x:Name="ErrorFirstName" Text="{Binding ValidateFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+      <TextBlock x:Name="ErrorLastName" Text="{Binding ValidateLastName}" />
+
+      <TextBlock x:Name="ErrorAddress" Text="{Binding ValidateAddress}" />
+
+      <TextBlock x:Name="ErrorCity" Text="{Binding ValidateCity}" />
+
+      <TextBlock x:Name="ErrorZipCode" Text="{Binding ValidateZipCode}" />
+
+      <TextBlock x:Name="ErrorPersonalNumber" Text="{Binding ValidatePersonalNumber}" />
+    </StackPanel>
+
     <!--LISTBOX -->
 
-    <ListBox x:Name="TempWorkerListBox" Grid.Column="4" Height="300" DataContext="{Binding vmTempWorkerCollection}" ItemsSource="{Binding TempWorkers}" SelectedItem="{Binding SelectedTempWorker, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="198">
+    <ListBox x:Name="TempWorkerListBox" Grid.Column="4" Height="300" DataContext="{Binding vmTempWorkerCollection}" ItemsSource="{Binding TempWorkers}" SelectedItem="{Binding SelectedTempWorker, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="198" Margin="39,16,0,0">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
@@ -68,18 +89,6 @@
       </ListBox.ItemTemplate>
     </ListBox>
 
-
-    <!-- ERROR MESSAGES -->
-
-    <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="360" DataContext="{Binding vmTempWorkerValidation}">
-      <TextBlock x:Name="ErrorFirstName" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="center" Height="23" Width="140" />
-      <TextBlock x:Name="ErrorLastName" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateLastName}" VerticalAlignment="center" Height="23" Width="140" />
-      <TextBlock x:Name="ErrorAddress" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateAddress}" VerticalAlignment="center" Height="23" Width="140" />
-      <TextBlock x:Name="ErrorCity" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateCity}" VerticalAlignment="center" Height="23" Width="140" />
-      <TextBlock x:Name="ErrorZipCode" Margin="5,8,5,8" Padding="3" Text="{Binding ValidateZipCode}" VerticalAlignment="center" Height="23" Width="140" />
-      <TextBlock x:Name="ErrorPersonalNumber" Margin="5,8,5,8" Padding="3" Text="{Binding ValidatePersonalNumber}" VerticalAlignment="center" Height="23" Width="140" />
-    </StackPanel>
-
     <!--COMMANDS-->
 
     <StackPanel Orientation="Horizontal" Grid.Row="9" Grid.Column="1" Margin="5,7,125,6" Grid.ColumnSpan="2" DataContext="{Binding cTempWorkerCommands}">
@@ -87,8 +96,9 @@
       <Button Name="btnSearch" Content="SØG" Margin="5,8" Padding="3" Command="{Binding SearchTempWorkerCommand}" />
       <Button Name="btnUpdate" Content="OPDATER" Margin="5,8" Padding="3" Command="{Binding UpdateTempWorkerCommand}" />
       <Button Name="btnDelete" Content="SLET" Margin="5,8" Padding="3" Command="{Binding DeleteTempWorkerCommand}" />
+      <Button Name="btnClear" Content="Ryd" Margin="5,8" Padding="3" Command="{Binding ClearTextCommand}" />
       <Button Content="TEST" Click="Button_Click" />
     </StackPanel>
-    
-</Grid>
+    <TextBlock Text="Vikar Information" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="160,15,0,318" Grid.ColumnSpan="2" />
+  </Grid>
 </Window>

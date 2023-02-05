@@ -7,7 +7,7 @@ namespace EksamenFinish.ViewModels
 {
     public class VMMainViewModelFactory : IMainViewModelFactory
     {
-        DALDatabaseConnection _dalDatabaseConnection;
+        private DALDatabaseConnection _dalDatabaseConnection;
         private DALTempWorkerRepository _dalTempWorkerRepository;
         private IMapModelToViewModel<MTempWorker, VMTempWorker> _mapToViewModel;
         private IMapViewModelToModel<MTempWorker, VMTempWorker> _mapToModel;
@@ -28,11 +28,6 @@ namespace EksamenFinish.ViewModels
 
         public VMTempWorkerCollection CreateTempWorkerCollection()
         {
-            return vm_TempWorkerCollection = new VMTempWorkerCollection(vm_TempWorker);
-        }
-
-        public CTempWorkerCommands CreateTempWorkerCommands()
-        {
             _dalDatabaseConnection = new DALDatabaseConnection();
 
             _dalTempWorkerRepository = new DALTempWorkerRepository(_dalDatabaseConnection);
@@ -43,7 +38,12 @@ namespace EksamenFinish.ViewModels
 
             s_TempWorkerRepository = new STempWorkerRepository(_dalTempWorkerRepository, _mapToViewModel, _mapToModel);
 
-            return new CTempWorkerCommands(vm_TempWorker, vm_TempWorkerCollection, s_TempWorkerRepository);
+            return vm_TempWorkerCollection = new VMTempWorkerCollection(vm_TempWorker, s_TempWorkerRepository);
+        }
+
+        public CTempWorkerCommands CreateTempWorkerCommands()
+        {
+            return new CTempWorkerCommands(vm_TempWorkerCollection);
         }
     }
 }

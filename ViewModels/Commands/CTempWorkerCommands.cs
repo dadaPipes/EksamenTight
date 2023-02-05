@@ -1,91 +1,72 @@
-﻿using EksamenFinish.Services;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System;
 using System.Windows.Input;
 
 namespace EksamenFinish.ViewModels.Commands
 {
     public class CTempWorkerCommands
     {
-        #region Fields
-
-        private VMTempWorker selectedTempWorker;
-        private STempWorkerRepository s_tempWorkerRepository;
         private VMTempWorkerCollection vm_TempWorkerCollection;
 
-        #endregion Fields
-
-        public CTempWorkerCommands(VMTempWorker selectedTempWorker, VMTempWorkerCollection vm_TempWorkerCollection, STempWorkerRepository s_tempWorkerRepository)
+        public CTempWorkerCommands(VMTempWorkerCollection vm_TempWorkerCollection)
         {
-            this.selectedTempWorker = selectedTempWorker;
             this.vm_TempWorkerCollection = vm_TempWorkerCollection;
-            this.s_tempWorkerRepository = s_tempWorkerRepository;
         }
 
-        #region SearchTempWorkerCommand
-
-        public ICommand SearchTempWorkerCommand
+        public ICommand CreateTempWorkerCommand => new RelayCommand(() =>
         {
-            get
+            if (!IsValidTempWorker(vm_TempWorkerCollection.SelectedTempWorker))
             {
-                return new RelayCommand(() =>
-                {
-                    vm_TempWorkerCollection.TempWorkers?.Clear();
+                // Validation failed, show error message
+            }
+            else if (vm_TempWorkerCollection.SelectedTempWorker.Id != Guid.Empty)
+            {
+                // Validation failed, show error message
+            }
+            else
+            {
+                vm_TempWorkerCollection.CreateTempWorker();
+            }
+        }, () => true);
 
-                    vm_TempWorkerCollection.TempWorkers = new ObservableCollection<VMTempWorker>(s_tempWorkerRepository.SearchTempWorkers(selectedTempWorker));
-                },
-                () => true);
+        public ICommand SearchTempWorkerCommand => new RelayCommand(() =>
+        {
+            if (vm_TempWorkerCollection.SelectedTempWorker == null)
+            {
+                // Validation failed, show error message
+            }
+            else
+            {
+                vm_TempWorkerCollection.SearchTempWorker();
+            }
+        }, () => true);
+
+        public ICommand UpdateTempWorkerCommand => new RelayCommand(vm_TempWorkerCollection.UpdateTempWorker, () => true);
+        public ICommand DeleteTempWorkerCommand => new RelayCommand(vm_TempWorkerCollection.DeleteTempWorker, () => true);
+        public ICommand ClearTextCommand => new RelayCommand(vm_TempWorkerCollection.ClearTextBoxes, () => true);
+
+        #region IsValidTempWorker
+
+        /// <summary>
+        /// Check if properties of VMTempWorker is NullOrWhiteSpace
+        /// </summary>
+
+        private bool IsValidTempWorker(VMTempWorker tempWorker)
+        {
+            if (string.IsNullOrWhiteSpace(tempWorker.FirstName)
+                || string.IsNullOrWhiteSpace(tempWorker.LastName)
+                || string.IsNullOrWhiteSpace(tempWorker.Address)
+                || string.IsNullOrWhiteSpace(tempWorker.City)
+                || (tempWorker.ZipCode == 0)
+                || string.IsNullOrWhiteSpace(tempWorker.PersonalNumber))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
-        #endregion SearchTempWorkerCommand
-
-        #region CreateTempWorkerCommand
-
-        public ICommand CreateTempWorkerCommand
-        {
-            get
-            {
-                return new RelayCommand(() =>
-                {
-                    s_tempWorkerRepository.CreateTempWorker(vm_TempWorkerCollection.SelectedTempWorker);
-                },
-                () => true);
-            }
-        }
-
-        #endregion CreateTempWorkerCommand
-
-        #region UpdateTempWorker
-
-        public ICommand UpdateTempWorkerCommand => new RelayCommand(() =>
-        {
-            s_tempWorkerRepository.UpdateTempWorker(vm_TempWorkerCollection.SelectedTempWorker);
-        }, () => true);
-
-        #endregion UpdateTempWorker
-
-        #region DeleteCommand
-
-        public ICommand DeleteTempWorkerCommand => new RelayCommand(() =>
-        {
-            s_tempWorkerRepository.DeleteTempWorker(vm_TempWorkerCollection.SelectedTempWorker);
-        }, () => true);
-
-        #endregion DeleteCommand
+        #endregion IsValidTempWorker
     }
 }
-
-// ICommand validation for SearchTempWorker:
-
-//if (string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.FirstName)
-//    || string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.LastName)
-//    || string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.Address)
-//    || string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.City)
-//    || (vm_tempWorkerViewModel.ZipCode == 0)
-//    || string.IsNullOrWhiteSpace(vm_tempWorkerViewModel.PersonalNumber))
-//{
-//    return false;
-//}
-//else
-//{

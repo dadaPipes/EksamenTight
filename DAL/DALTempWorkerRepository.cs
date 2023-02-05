@@ -14,7 +14,7 @@ namespace EksamenFinish.DAL
         public DALTempWorkerRepository(DALDatabaseConnection dbConnection)
         {
             this.dbConnection = dbConnection;
-            
+
             string connectionString = dbConnection.GetConnectionString();
             _connection = new SqlConnection(connectionString);
             _connection.Open();
@@ -24,7 +24,7 @@ namespace EksamenFinish.DAL
 
         public void CreateTempWorker(MTempWorker mTempWorker)
         {
-            using (var command = _connection.CreateCommand())
+            using (DbCommand command = _connection.CreateCommand())
             {
                 command.CommandText = "INSERT INTO TempWorker (Id, FirstName, LastName, Address, City, ZipCode, PersonalNumber, IsActive) " +
                                       "VALUES (@Id, @FirstName, @LastName, @Address, @City, @ZipCode, @PersonalNumber, @IsActive)";
@@ -47,9 +47,9 @@ namespace EksamenFinish.DAL
         public List<MTempWorker> SearchTempWorkers(MTempWorker mTempWorker)
         {
             var mTempWorkers = new List<MTempWorker>();
+
             using (DbCommand command = _connection.CreateCommand())
             {
-                
                 command.Connection = _connection;
 
                 // Start building the query
@@ -109,7 +109,6 @@ namespace EksamenFinish.DAL
                         });
                     }
                 }
-                
             }
             return mTempWorkers;
         }
@@ -146,6 +145,7 @@ namespace EksamenFinish.DAL
         #endregion UpdateWorker
 
         #region DeleteTempWorker
+
         public void DeleteTempWorker(MTempWorker mTempWorker)
         {
             try
@@ -163,7 +163,7 @@ namespace EksamenFinish.DAL
             }
         }
 
-        #endregion
+        #endregion DeleteTempWorker
 
         #region Helper Exeption
 
