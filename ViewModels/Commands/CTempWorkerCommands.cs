@@ -5,17 +5,17 @@ using System.Windows.Input;
 
 namespace EksamenFinish.ViewModels.Commands
 {
-    public class C_TempWorkerCommands
+    public class CTempWorkerCommands
     {
         #region Fields
 
-        private VM_TempWorker selectedTempWorker;
-        private S_TempWorkerRepository s_tempWorkerRepository;
-        private VM_TempWorkerCollection vm_TempWorkerCollection;
+        private VMTempWorker selectedTempWorker;
+        private STempWorkerRepository s_tempWorkerRepository;
+        private VMTempWorkerCollection vm_TempWorkerCollection;
 
         #endregion Fields
 
-        public C_TempWorkerCommands(VM_TempWorker selectedTempWorker, VM_TempWorkerCollection vm_TempWorkerCollection, S_TempWorkerRepository s_tempWorkerRepository)
+        public CTempWorkerCommands(VMTempWorker selectedTempWorker, VMTempWorkerCollection vm_TempWorkerCollection, STempWorkerRepository s_tempWorkerRepository)
         {
             this.selectedTempWorker = selectedTempWorker;
             this.vm_TempWorkerCollection = vm_TempWorkerCollection;
@@ -32,7 +32,7 @@ namespace EksamenFinish.ViewModels.Commands
                 {
                     vm_TempWorkerCollection.TempWorkers?.Clear();
 
-                    vm_TempWorkerCollection.TempWorkers = new ObservableCollection<VM_TempWorker>(s_tempWorkerRepository.SearchTempWorkers(selectedTempWorker));
+                    vm_TempWorkerCollection.TempWorkers = new ObservableCollection<VMTempWorker>(s_tempWorkerRepository.SearchTempWorkers(selectedTempWorker));
                 },
                 () => true);
             }

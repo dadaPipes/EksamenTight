@@ -4,17 +4,17 @@ using System.ComponentModel;
 namespace EksamenFinish.ViewModels
 {
     //ViewModel for TempWorker collection
-    public class VM_TempWorkerCollection : INotifyPropertyChanged
+    public class VMTempWorkerCollection : INotifyPropertyChanged
     {
         
-        public VM_TempWorkerCollection(VM_TempWorker selectedTempWorker)
+        public VMTempWorkerCollection(VMTempWorker selectedTempWorker)
         {
             SelectedTempWorker = selectedTempWorker;
         }
 
-        private VM_TempWorker _selectedTempWorker;
+        private VMTempWorker _selectedTempWorker;
 
-        public VM_TempWorker SelectedTempWorker
+        public VMTempWorker SelectedTempWorker
         {
             get => _selectedTempWorker;
             set
@@ -24,9 +24,9 @@ namespace EksamenFinish.ViewModels
             }
         }
 
-        private ObservableCollection<VM_TempWorker> _tempWorkers;
+        private ObservableCollection<VMTempWorker> _tempWorkers;
 
-        public ObservableCollection<VM_TempWorker> TempWorkers
+        public ObservableCollection<VMTempWorker> TempWorkers
         {
             get => _tempWorkers;
             set

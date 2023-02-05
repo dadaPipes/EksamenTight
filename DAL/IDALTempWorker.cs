@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace EksamenFinish.DAL
 {
-    public interface IDAL_TempWorker
+    public interface IDALTempWorker
     {
-        void CreateTempWorker(M_TempWorker m_tempWorker);
+        void CreateTempWorker(MTempWorker mTempWorker);
 
-        List<M_TempWorker> SearchTempWorkers(M_TempWorker dto_tempWorker);
+        List<MTempWorker> SearchTempWorkers(MTempWorker mTempWorker);
 
-        void UpdateWorker(M_TempWorker dto_tempWorker);
+        void UpdateWorker(MTempWorker mTempWorker);
 
-        void DeleteTempWorker(M_TempWorker dto_tempWorker);
+        void DeleteTempWorker(MTempWorker mTempWorker);
     }
 }

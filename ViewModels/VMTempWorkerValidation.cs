@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace EksamenFinish.ViewModels
 {
-    public class VM_TempWorkerValidation : INotifyPropertyChanged
+    public class VMTempWorkerValidation : INotifyPropertyChanged
     {
         // //ViewModel for TempWorker validation
         // Responsible for validating the properties of a TempWorker, returning an error message if the name is invalid.

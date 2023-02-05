@@ -4,7 +4,7 @@ namespace EksamenFinish.DAL
 {
     // Handles the connection to the Database
     
-    public class DAL_DatabaseConnection
+    public class DALDatabaseConnection
     {
         public string GetConnectionString()
         {

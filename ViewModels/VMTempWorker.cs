@@ -6,14 +6,21 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
+// Parameterless constructor to avoid _validation being null when creating a new instance of VM_TempWorker in the MapperClasses.
 namespace EksamenFinish.ViewModels
 {
     // Used for data binding in the UI layer.
-    public class VM_TempWorker : INotifyPropertyChanged
+    public class VMTempWorker : INotifyPropertyChanged
     {
-        private VM_TempWorkerValidation _validation;
+        private VMTempWorkerValidation _validation;
 
-        public VM_TempWorker(VM_TempWorkerValidation validation)
+        public VMTempWorker()
+        {
+            _validation = new VMTempWorkerValidation();
+        }
+
+        // Constructor to accept an instance of VM_TempWorkerValidation
+        public VMTempWorker(VMTempWorkerValidation validation)
         {
             _validation = validation;
         }
@@ -82,7 +89,6 @@ namespace EksamenFinish.ViewModels
                 }
                 OnPropertyChanged(nameof(Address));
                 OnPropertyChanged(nameof(_validation.ValidateAddress));
-
             }
         }
 
@@ -111,9 +117,9 @@ namespace EksamenFinish.ViewModels
             set
             {
                 _zipCode = value;
-                if (_validation != null) 
+                if (_validation != null)
                 {
-                    _validation.ValidateZipCode =  _zipCode.ToString();
+                    _validation.ValidateZipCode = _zipCode.ToString();
                 }
                 OnPropertyChanged(nameof(ZipCode));
                 OnPropertyChanged(nameof(_validation.ValidateZipCode));

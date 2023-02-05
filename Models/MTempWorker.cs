@@ -5,7 +5,7 @@ namespace EksamenFinish.Models
     // Responsibility is to define the properties and structure of a TempWorker object,
     // serving as a blueprint for creating and manipulating TempWorker instances in the application.
 
-    public class M_TempWorker
+    public class MTempWorker
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

@@ -6,13 +6,15 @@ using System.Data.Common;
 
 namespace EksamenFinish.DAL
 {
-    public class DAL_TempWorkerRepository : IDisposable, IDAL_TempWorker
+    public class DALTempWorkerRepository : IDisposable, IDALTempWorker
     {
-        private DbConnection _connection;
+        private readonly DbConnection _connection;
+        private readonly DALDatabaseConnection dbConnection;
 
-        public DAL_TempWorkerRepository()
+        public DALTempWorkerRepository(DALDatabaseConnection dbConnection)
         {
-            DAL_DatabaseConnection dbConnection = new DAL_DatabaseConnection();
+            this.dbConnection = dbConnection;
+            
             string connectionString = dbConnection.GetConnectionString();
             _connection = new SqlConnection(connectionString);
             _connection.Open();
@@ -20,20 +22,20 @@ namespace EksamenFinish.DAL
 
         #region CreateTempWorker
 
-        public void CreateTempWorker(M_TempWorker m_tempWorker)
+        public void CreateTempWorker(MTempWorker mTempWorker)
         {
             using (var command = _connection.CreateCommand())
             {
                 command.CommandText = "INSERT INTO TempWorker (Id, FirstName, LastName, Address, City, ZipCode, PersonalNumber, IsActive) " +
-                    "VALUES (@Id, @FirstName, @LastName, @Address, @City, @ZipCode, @PersonalNumber, @IsActive)";
+                                      "VALUES (@Id, @FirstName, @LastName, @Address, @City, @ZipCode, @PersonalNumber, @IsActive)";
                 command.Parameters.Add(new SqlParameter("@Id", Guid.NewGuid()));
-                command.Parameters.Add(new SqlParameter("@FirstName", m_tempWorker.FirstName));
-                command.Parameters.Add(new SqlParameter("@LastName", m_tempWorker.LastName));
-                command.Parameters.Add(new SqlParameter("@Address", m_tempWorker.Address));
-                command.Parameters.Add(new SqlParameter("@City", m_tempWorker.City));
-                command.Parameters.Add(new SqlParameter("@ZipCode", m_tempWorker.ZipCode));
-                command.Parameters.Add(new SqlParameter("@PersonalNumber", m_tempWorker.PersonalNumber));
-                command.Parameters.Add(new SqlParameter("@IsActive", m_tempWorker.IsActive));
+                command.Parameters.Add(new SqlParameter("@FirstName", mTempWorker.FirstName));
+                command.Parameters.Add(new SqlParameter("@LastName", mTempWorker.LastName));
+                command.Parameters.Add(new SqlParameter("@Address", mTempWorker.Address));
+                command.Parameters.Add(new SqlParameter("@City", mTempWorker.City));
+                command.Parameters.Add(new SqlParameter("@ZipCode", mTempWorker.ZipCode));
+                command.Parameters.Add(new SqlParameter("@PersonalNumber", mTempWorker.PersonalNumber));
+                command.Parameters.Add(new SqlParameter("@IsActive", mTempWorker.IsActive));
                 command.ExecuteNonQuery();
             }
         }
@@ -42,9 +44,9 @@ namespace EksamenFinish.DAL
 
         #region SearchTempWorkers
 
-        public List<M_TempWorker> SearchTempWorkers(M_TempWorker m_tempWorker)
+        public List<MTempWorker> SearchTempWorkers(MTempWorker mTempWorker)
         {
-            var m_tempWorkers = new List<M_TempWorker>();
+            var mTempWorkers = new List<MTempWorker>();
             using (DbCommand command = _connection.CreateCommand())
             {
                 
@@ -53,40 +55,40 @@ namespace EksamenFinish.DAL
                 // Start building the query
                 var query = "SELECT * FROM TempWorker WHERE 1=1";
 
-                if (!string.IsNullOrEmpty(m_tempWorker.FirstName))
+                if (!string.IsNullOrEmpty(mTempWorker.FirstName))
                 {
                     query += " AND FirstName = @FirstName";
-                    command.Parameters.Add(new SqlParameter("@FirstName", m_tempWorker.FirstName));
+                    command.Parameters.Add(new SqlParameter("@FirstName", mTempWorker.FirstName));
                 }
 
-                if (!string.IsNullOrEmpty(m_tempWorker.LastName))
+                if (!string.IsNullOrEmpty(mTempWorker.LastName))
                 {
                     query += " AND LastName = @LastName";
-                    command.Parameters.Add(new SqlParameter("@LastName", m_tempWorker.LastName));
+                    command.Parameters.Add(new SqlParameter("@LastName", mTempWorker.LastName));
                 }
 
-                if (!string.IsNullOrEmpty(m_tempWorker.City))
+                if (!string.IsNullOrEmpty(mTempWorker.City))
                 {
                     query += " AND City = @City";
-                    command.Parameters.Add(new SqlParameter("@City", m_tempWorker.City));
+                    command.Parameters.Add(new SqlParameter("@City", mTempWorker.City));
                 }
 
-                if (m_tempWorker.ZipCode != 0)
+                if (mTempWorker.ZipCode != 0)
                 {
                     query += " AND ZipCode = @ZipCode";
-                    command.Parameters.Add(new SqlParameter("@ZipCode", m_tempWorker.ZipCode));
+                    command.Parameters.Add(new SqlParameter("@ZipCode", mTempWorker.ZipCode));
                 }
 
-                if (!string.IsNullOrEmpty(m_tempWorker.PersonalNumber))
+                if (!string.IsNullOrEmpty(mTempWorker.PersonalNumber))
                 {
                     query += " AND PersonalNumber = @PersonalNumber";
-                    command.Parameters.Add(new SqlParameter("@PersonalNumber", m_tempWorker.PersonalNumber));
+                    command.Parameters.Add(new SqlParameter("@PersonalNumber", mTempWorker.PersonalNumber));
                 }
 
-                if (m_tempWorker.IsActive != null)
+                if (mTempWorker.IsActive != null)
                 {
                     query += " AND IsActive = @IsActive";
-                    command.Parameters.Add(new SqlParameter("@IsActive", m_tempWorker.IsActive));
+                    command.Parameters.Add(new SqlParameter("@IsActive", mTempWorker.IsActive));
                 }
 
                 command.CommandText = query;
@@ -94,7 +96,7 @@ namespace EksamenFinish.DAL
                 {
                     while (reader.Read())
                     {
-                        m_tempWorkers.Add(new M_TempWorker
+                        mTempWorkers.Add(new MTempWorker
                         {
                             Id = (Guid)reader["Id"],
                             FirstName = (string)reader["FirstName"],
@@ -109,29 +111,29 @@ namespace EksamenFinish.DAL
                 }
                 
             }
-            return m_tempWorkers;
+            return mTempWorkers;
         }
 
         #endregion SearchTempWorkers
 
         #region UpdateWorker
 
-        public void UpdateWorker(M_TempWorker m_tempWorker)
+        public void UpdateWorker(MTempWorker mTempWorker)
         {
             try
             {
                 using (DbCommand command = _connection.CreateCommand())
                 {
                     command.CommandText = "UPDATE TempWorker SET FirstName = @FirstName, LastName = @LastName, Address = @Address, City = @City, ZipCode = @ZipCode, PersonalNumber = @PersonalNumber, IsActive = @IsActive WHERE Id = @Id";
-                    command.Parameters.Add(new SqlParameter("@FirstName", m_tempWorker.FirstName));
-                    command.Parameters.Add(new SqlParameter("@LastName", m_tempWorker.LastName));
-                    command.Parameters.Add(new SqlParameter("@Address", m_tempWorker.Address));
-                    command.Parameters.Add(new SqlParameter("@City", m_tempWorker.City));
-                    command.Parameters.Add(new SqlParameter("@ZipCode", m_tempWorker.ZipCode));
-                    command.Parameters.Add(new SqlParameter("@PersonalNumber", m_tempWorker.PersonalNumber));
-                    command.Parameters.Add(new SqlParameter("@IsActive", m_tempWorker.IsActive));
+                    command.Parameters.Add(new SqlParameter("@FirstName", mTempWorker.FirstName));
+                    command.Parameters.Add(new SqlParameter("@LastName", mTempWorker.LastName));
+                    command.Parameters.Add(new SqlParameter("@Address", mTempWorker.Address));
+                    command.Parameters.Add(new SqlParameter("@City", mTempWorker.City));
+                    command.Parameters.Add(new SqlParameter("@ZipCode", mTempWorker.ZipCode));
+                    command.Parameters.Add(new SqlParameter("@PersonalNumber", mTempWorker.PersonalNumber));
+                    command.Parameters.Add(new SqlParameter("@IsActive", mTempWorker.IsActive));
                     // Id should not be changed:
-                    command.Parameters.Add(new SqlParameter("@Id", m_tempWorker.Id));
+                    command.Parameters.Add(new SqlParameter("@Id", mTempWorker.Id));
                     command.ExecuteNonQuery();
                 }
             }
@@ -144,14 +146,14 @@ namespace EksamenFinish.DAL
         #endregion UpdateWorker
 
         #region DeleteTempWorker
-        public void DeleteTempWorker(M_TempWorker m_tempWorker)
+        public void DeleteTempWorker(MTempWorker mTempWorker)
         {
             try
             {
                 using (DbCommand command = _connection.CreateCommand())
                 {
                     command.CommandText = "DELETE FROM TempWorker WHERE Id = @Id";
-                    command.Parameters.Add(new SqlParameter("@Id", m_tempWorker.Id));
+                    command.Parameters.Add(new SqlParameter("@Id", mTempWorker.Id));
                     command.ExecuteNonQuery();
                 }
             }
