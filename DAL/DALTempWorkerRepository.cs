@@ -131,7 +131,6 @@ namespace EksamenFinish.DAL
                     command.Parameters.Add(new SqlParameter("@ZipCode", mTempWorker.ZipCode));
                     command.Parameters.Add(new SqlParameter("@PersonalNumber", mTempWorker.PersonalNumber));
                     command.Parameters.Add(new SqlParameter("@IsActive", mTempWorker.IsActive));
-                    // Id should not be changed:
                     command.Parameters.Add(new SqlParameter("@Id", mTempWorker.Id));
                     command.ExecuteNonQuery();
                 }
