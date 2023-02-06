@@ -12,6 +12,7 @@ namespace EksamenFinish.ViewModels.Commands
             this.vm_TempWorkerCollection = vm_TempWorkerCollection;
         }
 
+
         public ICommand CreateTempWorkerCommand => new RelayCommand(() =>
         {
             if (!IsValidTempWorker(vm_TempWorkerCollection.SelectedTempWorker))

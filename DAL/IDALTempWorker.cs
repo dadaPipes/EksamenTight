@@ -1,5 +1,4 @@
 ﻿using EksamenFinish.Models;
-using System;
 using System.Collections.Generic;
 
 namespace EksamenFinish.DAL

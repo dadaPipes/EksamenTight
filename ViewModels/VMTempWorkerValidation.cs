@@ -29,11 +29,11 @@ namespace EksamenFinish.ViewModels
 
                 if (_onlyDigits.IsMatch(value))
                 {
-                    value = "Invalid first name, only letters are allowed.";
+                    value = "kun bogstaver";
                 }
                 else if (value.Length > 50)
                 {
-                    value = "First name must be 50 characters or less.";
+                    value = "under 50 tegn";
                 }
                 else
                 {
@@ -55,11 +55,11 @@ namespace EksamenFinish.ViewModels
 
                 if (_onlyDigits.IsMatch(value))
                 {
-                    value = "Invalid last name, only letters are allowed.";
+                    value = "kun bogstaver";
                 }
                 else if (value.Length > 50)
                 {
-                    value = "Last name must be 50 characters or less.";
+                    value = "max 50 tegn";
                 }
                 else
                 {
@@ -81,11 +81,11 @@ namespace EksamenFinish.ViewModels
 
                 if (_onlyDigits.IsMatch(value))
                 {
-                    value = "Invalid address, only letters are allowed.";
+                    value = "kun bogstaver";
                 }
-                else if (value.Length > 5)
+                else if (value.Length > 25)
                 {
-                    value = "Address must be 5 characters or less.";
+                    value = "max 25 tegn";
                 }
                 else
                 {
@@ -107,11 +107,11 @@ namespace EksamenFinish.ViewModels
                 _validateCity ??= "";
                 if (!_onlyLetters.IsMatch(value))
                 {
-                    value = "Invalid city name";
+                    value = "kun bogstaver";
                 }
                 else if (value.Length > 50)
                 {
-                    value = "City must be 50 characters or less.";
+                    value = "max 25 tegn";
                 }
                 else
                 {
@@ -135,11 +135,11 @@ namespace EksamenFinish.ViewModels
                 if (!_onlyDigits.IsMatch(value))
 
                 {
-                    value = "Must be digits";
+                    value = "kun tal";
                 }
                 else if (value.Length != 4)
                 {
-                    value = "Must be 4 digits";
+                    value = "kun 4 tal";
                 }
                 else
                 {
@@ -162,11 +162,11 @@ namespace EksamenFinish.ViewModels
                 if (!_onlyDigits.IsMatch(value))
 
                 {
-                    value = "Must be digits";
+                    value = "kun tal";
                 }
                 else if (value.Length != 10)
                 {
-                    value = "Must be 10 digits";
+                    value = "kun 10 cifre";
                 }
                 else
                 {

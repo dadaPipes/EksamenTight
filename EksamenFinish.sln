@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EksamenFinish", "EksamenFinish.csproj", "{10B52DA7-6FCC-42B0-8246-F984E6257B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EksamenFinish", "EksamenFinish.csproj", "{10B52DA7-6FCC-42B0-8246-F984E6257B60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALRepoTempWorkerTest", "..\DALRepoTempWorkerTest\DALRepoTempWorkerTest.csproj", "{0AD1105E-E083-4718-9672-4EAE14DBF6FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALTest", "..\DALTest\DALTest.csproj", "{A2347BAE-5BC7-4A2D-B513-E70444EB9D4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{10B52DA7-6FCC-42B0-8246-F984E6257B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10B52DA7-6FCC-42B0-8246-F984E6257B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10B52DA7-6FCC-42B0-8246-F984E6257B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AD1105E-E083-4718-9672-4EAE14DBF6FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD1105E-E083-4718-9672-4EAE14DBF6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD1105E-E083-4718-9672-4EAE14DBF6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD1105E-E083-4718-9672-4EAE14DBF6FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2347BAE-5BC7-4A2D-B513-E70444EB9D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2347BAE-5BC7-4A2D-B513-E70444EB9D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2347BAE-5BC7-4A2D-B513-E70444EB9D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2347BAE-5BC7-4A2D-B513-E70444EB9D4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

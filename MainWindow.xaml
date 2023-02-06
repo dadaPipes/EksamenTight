@@ -22,6 +22,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
     <!--NAMES FOR TEXTBOXES-->
@@ -38,7 +39,7 @@
 
     <!--TEXTBOX TEMPWORKER PROPERTIES-->
 
-    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" DataContext="{Binding vmTempWorkerCollection.SelectedTempWorker}">
+    <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="50,70" DataContext="{Binding vmTempWorkerCollection.SelectedTempWorker}">
       <TextBox Name="txtFirstName" Margin="5,8,5,8" Padding="3" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtLastName" Margin="5,8,5,8" Padding="3" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
       <TextBox Name="txtAddress" Margin="5,8,5,8" Padding="3" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -53,7 +54,7 @@
 
     <!-- ERROR MESSAGES -->
 
-    <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="360" DataContext="{Binding vmTempWorkerValidation}">
+    <StackPanel Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="300" Margin="0,10" Grid.RowSpan="3" DataContext="{Binding vmTempWorkerValidation}">
       <StackPanel.Resources>
         <Style TargetType="TextBlock" x:Key="errorMessageStyle">
           <Setter Property="Foreground" Value="Red" />
@@ -64,17 +65,16 @@
           <Setter Property="Width" Value="140" />
         </Style>
       </StackPanel.Resources>
-      <TextBlock x:Name="ErrorFirstName" Text="{Binding ValidateFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+      <TextBlock x:Name="ErrorFirstName" Text="{Binding ValidateFirstName}" Style="{StaticResource errorMessageStyle}" />
+      <TextBlock x:Name="ErrorLastName" Text="{Binding ValidateLastName}" Style="{StaticResource errorMessageStyle}" />
 
-      <TextBlock x:Name="ErrorLastName" Text="{Binding ValidateLastName}" />
+      <TextBlock x:Name="ErrorAddress" Text="{Binding ValidateAddress}" Style="{StaticResource errorMessageStyle}" />
 
-      <TextBlock x:Name="ErrorAddress" Text="{Binding ValidateAddress}" />
+      <TextBlock x:Name="ErrorCity" Text="{Binding ValidateCity}" Style="{StaticResource errorMessageStyle}" />
 
-      <TextBlock x:Name="ErrorCity" Text="{Binding ValidateCity}" />
+      <TextBlock x:Name="ErrorZipCode" Text="{Binding ValidateZipCode}" Style="{StaticResource errorMessageStyle}" />
 
-      <TextBlock x:Name="ErrorZipCode" Text="{Binding ValidateZipCode}" />
-
-      <TextBlock x:Name="ErrorPersonalNumber" Text="{Binding ValidatePersonalNumber}" />
+      <TextBlock x:Name="ErrorPersonalNumber" Text="{Binding ValidatePersonalNumber}" Style="{StaticResource errorMessageStyle}" />
     </StackPanel>
 
     <!--LISTBOX -->
@@ -97,7 +97,6 @@
       <Button Name="btnUpdate" Content="OPDATER" Margin="5,8" Padding="3" Command="{Binding UpdateTempWorkerCommand}" />
       <Button Name="btnDelete" Content="SLET" Margin="5,8" Padding="3" Command="{Binding DeleteTempWorkerCommand}" />
       <Button Name="btnClear" Content="Ryd" Margin="5,8" Padding="3" Command="{Binding ClearTextCommand}" />
-      <Button Content="TEST" Click="Button_Click" />
     </StackPanel>
     <TextBlock Text="Vikar Information" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Margin="160,15,0,318" Grid.ColumnSpan="2" />
   </Grid>

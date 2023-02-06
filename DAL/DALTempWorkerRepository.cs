@@ -169,19 +169,14 @@ namespace EksamenFinish.DAL
 
         private void HandleException(Exception ex)
         {
-            // Log the exception
-            // Send an email or notification to the administrator
-            // Show a message to the user
-            // etc.
+            // Error message
         }
 
         #endregion Helper Exeption
 
         #region Helper Dispose
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
+        
         public void Dispose()
         {
             if (_connection != null)
